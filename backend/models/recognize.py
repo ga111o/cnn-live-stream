@@ -43,3 +43,16 @@ async def recognize_image(image_path, model_path='embedding_model.h5', embedding
         'class': _class_mapping[most_similar_idx],
         'similarity': similarities[most_similar_idx]
     }
+
+if __name__ == "__main__":
+    import time
+    from icecream import ic
+
+    for i in range(1, 101):
+        start_time = time.time()
+        result = asyncio.run(recognize_image(f'./test_images/3.jpg'))
+        end_time = time.time()
+        time_ms = (end_time - start_time)*1000
+        
+        
+        ic(i, result, time_ms)
