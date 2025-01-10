@@ -39,11 +39,7 @@ app.add_middleware(
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    # temp 디렉토리가 없으면 생성
-    os.makedirs("./temp", exist_ok=True)
-    
     await websocket.accept()
-    print("WebSocket connected")
     
     try:
         while True:
@@ -52,11 +48,7 @@ async def websocket_endpoint(websocket: WebSocket):
             nparr = np.frombuffer(data, np.uint8)
             frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
             
-            # 임시 이미지 파일 경로를 temp 디렉토리 내부로 변경
-            temp_path = "./temp/temp_image.jpg"
-            cv2.imwrite(temp_path, frame)
-            
-            result = recognize_image(temp_path, model_path=os.getenv('MODEL_PATH'), embeddings_path=os.getenv('EMBEDDINGS_PATH'), class_mapping_path=os.getenv('CLASS_MAPPING_PATH'))
+            result = recognize_image(frame, model_path=os.getenv('MODEL_PATH'), embeddings_path=os.getenv('EMBEDDINGS_PATH'), class_mapping_path=os.getenv('CLASS_MAPPING_PATH'))
             ic(result)
             
             await websocket.send_json({"recognition": result})
