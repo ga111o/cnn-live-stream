@@ -1,0 +1,10 @@
+images/*
+embeddings.npy
+unique_ids.npy
+embedding_model.h5
+class_mapping.npy
+test_images/*
+__pycache__/
+images/
+test_images/
+temp/

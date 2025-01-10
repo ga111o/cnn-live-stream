@@ -1,0 +1,10 @@
+tensorflow
+numpy
+scikit-learn
+Pillow
+icecream
+uvicorn
+fastapi
+python-dotenv
+opencv-python
+websockets
